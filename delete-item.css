@@ -1,0 +1,9 @@
+/* delete-item.css */
+*{box-sizing:border-box}
+body{margin:0;font-family:Poppins, sans-serif;background:linear-gradient(135deg,#53346d,#b05bba);color:#fff;min-height:100vh}
+.topbar{display:flex;align-items:center;gap:12px;padding:14px 20px;background:rgba(255,255,255,0.03)}
+.main{padding:22px}
+.list{max-width:900px;margin:auto;display:flex;flex-direction:column;gap:10px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:12px;background:rgba(255,255,255,0.03);border-radius:10px}
+button{padding:8px 12px;border-radius:8px;border:none;background:#ff6b6b;color:#fff;cursor:pointer}
+footer.site-footer{margin-top:30px;padding:12px;background:rgba(0,0,0,0.12);border-radius:12px;display:flex;justify-content:space-between}

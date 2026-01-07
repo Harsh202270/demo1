@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Update Item - Smart Grocery</title>
+  <link rel="stylesheet" href="update-item.css">
+  <script src="app.js"></script>
+</head>
+<body onload="renderSelect()">
+  <header class="topbar"><div class="logo">✏️ Update Item</div><nav><a href="index.html">Home</a><a href="view-items.html">View</a></nav></header>
+  <main class="main">
+    <div class="card">
+      <h2>Select Item to Update</h2>
+      <select id="sel"></select>
+      <label>New Expiry</label><input id="newDate" type="date">
+      <label>New Stock</label><input id="newStock" type="number" min="0">
+      <label>Note</label><input id="newNote">
+      <button onclick="doUpdate()">Update</button>
+    </div>
+  </main>
+  <div id="footerWrap"></div>
+  <script>
+    function renderSelect(){
+      const sel=document.getElementById('sel');
+      sel.innerHTML='';
+      loadItems().forEach(it=> sel.innerHTML += `<option value="${it.id}">${it.name} — ${formatDate(it.date)} • ${it.stock}</option>`);
+    }
+    function doUpdate(){
+      const id=document.getElementById('sel').value;
+      const nd=document.getElementById('newDate').value;
+      const ns=document.getElementById('newStock').value;
+      const nn=document.getElementById('newNote').value;
+      updateItemById(id, nd||undefined, ns?Number(ns):undefined, nn);
+      alert('Updated');
+      renderSelect();
+    }
+    document.getElementById('footerWrap').innerHTML = footerHTML();
+  </script>
+</body>
+</html>

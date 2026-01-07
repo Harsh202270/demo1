@@ -1,0 +1,310 @@
+/* 🌈 SUPER PREMIUM SMART GROCERY UI */
+/* GOOGLE FONT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  transition: 0.25s all ease-in-out;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #3a1c71, #d76d77, #ffaf7b);
+  color: #fff;
+}
+
+/* 🔥 TOP BAR */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 40px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(255,255,255,0.6);
+}
+
+/* 🔍 Search Bar */
+.topbar .search {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  font-size: 14px;
+  box-shadow: inset 0 0 12px rgba(255,255,255,0.2);
+}
+
+.topbar .search:focus {
+  outline: none;
+  background: rgba(255,255,255,0.2);
+  box-shadow: 0 0 12px rgba(255,255,255,0.5);
+}
+
+/* 🌐 NAV LINKS */
+.topbar nav a {
+  color: #fff;
+  margin-left: 12px;
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+  font-size: 14px;
+  border: 1px solid transparent;
+}
+
+.topbar nav a:hover {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.4);
+  transform: translateY(-2px);
+}
+
+/* 📦 MAIN CONTAINER */
+.main {
+  padding: 40px 40px;
+}
+
+/* 🔥 GRID CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+}
+
+/* 🃏 CARD STYLE */
+.card, .stat {
+  padding: 22px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.15);
+  transform: translateY(0);
+}
+
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+}
+
+.card .card-title {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.card .card-sub {
+  margin-top: 10px;
+  opacity: 0.9;
+}
+
+/* 💡 STATUS COLORS WITH GLOW */
+.green {
+  background: linear-gradient(135deg, #2ecc71aa, #27ae60cc);
+  box-shadow: 0 0 15px #2ecc71aa;
+}
+
+.yellow {
+  background: linear-gradient(135deg, #f6c23eaa, #f8b26acc);
+  color: #2c2c2c;
+  box-shadow: 0 0 15px #f6c23eaa;
+}
+
+.red {
+  background: linear-gradient(135deg, #e74c3caa, #c0392bcc);
+  box-shadow: 0 0 15px #e74c3caa;
+}
+
+/* 📊 STATS CARD */
+.stat {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* 🦶 FOOTER */
+footer.site-footer {
+  margin-top: 40px;
+  padding: 18px 24px;
+  background: rgba(0,0,0,0.25);
+  border-radius: 14px;
+  box-shadow: 0 5px 18px rgba(0,0,0,0.25);
+  display: flex;
+  justify-content: space-between;
+  backdrop-filter: blur(12px);
+}
+/* ===========================================
+   SMART GROCERY — CLEAN PREMIUM UI (FINAL WOW)
+   =========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  transition: .25s ease;
+}
+
+body {
+  font-family: Poppins, sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+  color: #fff;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+/* ==========================
+   TOP BAR
+   ========================== */
+
+.topbar {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(12px);
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #38bdf8;
+  text-shadow: 0 0 10px rgba(56,189,248,0.5);
+}
+
+/* Search */
+.topbar .search {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid transparent;
+  color: white;
+}
+
+.topbar .search:focus {
+  background: rgba(255,255,255,0.12);
+  border-color: #38bdf8;
+  box-shadow: 0 0 12px rgba(56,189,248,0.4);
+  outline: none;
+}
+
+/* Navigation */
+.topbar nav a {
+  color: #e2e8f0;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  font-size: 14px;
+  border: 1px solid transparent;
+}
+
+.topbar nav a:hover {
+  background: rgba(56,189,248,0.18);
+  border-color: rgba(56,189,248,0.4);
+  color: #38bdf8;
+  transform: translateY(-2px);
+}
+
+/* ==========================
+   MAIN AREA
+   ========================== */
+.main {
+  padding: 40px 40px;
+}
+
+/* Grid Cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 22px;
+}
+
+/* Card Base */
+.card, .stat {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(10px);
+  padding: 22px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.07);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+}
+
+.card {
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+}
+
+/* Card Title */
+.card .card-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.card .card-sub {
+  margin-top: 8px;
+  font-size: 14px;
+  opacity: .85;
+}
+
+/* ==========================
+   STATUS COLORS
+   ========================== */
+.green {
+  background: linear-gradient(135deg, #1e3a8a55, #10b98133);
+  border-left: 4px solid #10b981;
+}
+
+.yellow {
+  background: linear-gradient(135deg, #facc1533, #fbbf2433);
+  border-left: 4px solid #facc15;
+  color: #2a2a2a;
+}
+
+.red {
+  background: linear-gradient(135deg, #ef444422, #dc262633);
+  border-left: 4px solid #ef4444;
+}
+
+/* ==========================
+   STAT CARDS
+   ========================== */
+.stat {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 28px;
+}
+
+/* ==========================
+   FOOTER
+   ========================== */
+footer.site-footer {
+  padding: 20px 30px;
+  margin-top: 50px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid rgba(255,255,255,0.07);
+}

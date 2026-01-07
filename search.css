@@ -1,0 +1,16 @@
+/* search.css */
+*{box-sizing:border-box}
+body{margin:0;font-family:Poppins, sans-serif;background:linear-gradient(135deg,#232526,#414345);color:#fff;min-height:100vh}
+.topbar{display:flex;align-items:center;gap:12px;padding:16px 24px;background:rgba(255,255,255,0.03)}
+.search{flex:1;padding:10px;border-radius:10px;border:none;background:rgba(255,255,255,0.04);color:#fff}
+.main{padding:24px}
+.group{background:rgba(255,255,255,0.02);padding:14px;border-radius:12px;margin-bottom:12px}
+.ghead{display:flex;justify-content:space-between;align-items:center}
+.glist{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+.gitem{padding:8px;border-radius:8px;cursor:pointer}
+.green{background:#2ecc71;color:#fff}
+.yellow{background:#f6c23e;color:#111}
+.red{background:#e74c3c;color:#fff}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center}
+.overlay-inner{background:#fff;color:#111;padding:18px;border-radius:10px;width:90%;max-width:640px}
+footer.site-footer{margin-top:30px;padding:12px;background:rgba(0,0,0,0.12);border-radius:12px;display:flex;justify-content:space-between}

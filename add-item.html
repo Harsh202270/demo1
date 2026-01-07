@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Add Item - Smart Grocery</title>
+  <link rel="stylesheet" href="add-item.css">
+  <script src="app.js"></script>
+</head>
+<body onload="document.getElementById('name').focus()">
+  <header class="topbar">
+    <div class="logo">🍏 Smart Grocery</div>
+    <input id="topSearch" class="search" placeholder="Search items..." oninput="doLiveTopSearch(event)">
+    <nav><a href="index.html">Dashboard</a><a href="view-items.html">View</a><a href="search.html">Search</a></nav>
+  </header>
+
+  <main class="wrap">
+    <section class="left">
+      <div class="card">
+        <h2>Add New Item</h2>
+        <label>Item Name</label>
+        <input id="name" placeholder="Milk">
+        <label>Expiry Date</label>
+        <input id="date" type="date">
+        <label>Stock (number)</label>
+        <input id="stock" type="number" min="0" value="1">
+        <label>Note (optional)</label>
+        <input id="note" placeholder="e.g. 2L pack">
+
+        <div class="row">
+          <button id="addBtn">Add Item</button>
+          <button id="calcBtn" class="outline">Open Calculator</button>
+        </div>
+      </div>
+
+      <div id="message" class="message"></div>
+    </section>
+
+    <aside class="right">
+      <div class="card small">
+        <h3>Stock Calculator</h3>
+        <div class="calcRow">
+          <input id="c-a" placeholder="Value A">
+          <input id="c-b" placeholder="Value B">
+        </div>
+        <select id="c-op">
+          <option value="add">Add (+)</option>
+          <option value="sub">Subtract (−)</option>
+          <option value="mul">Multiply (×)</option>
+          <option value="div">Divide (÷)</option>
+        </select>
+        <button id="c-go">Calculate</button>
+        <div id="c-res" class="calcRes">Result: —</div>
+      </div>
+
+      <div class="card small live-panel">
+        <h3>Quick Preview</h3>
+        <div id="preview">No item yet</div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- POPUP CALCULATOR -->
+  <div id="calculatorPopup" class="popup">
+    <div class="popup-content">
+        <h2 style="text-align:center; margin-bottom:10px;">Calculator</h2>
+
+        <input type="text" id="display" disabled>
+
+        <div class="keys">
+            <button onclick="press('7')">7</button>
+            <button onclick="press('8')">8</button>
+            <button onclick="press('9')">9</button>
+            <button onclick="press('/')">/</button>
+
+            <button onclick="press('4')">4</button>
+            <button onclick="press('5')">5</button>
+            <button onclick="press('6')">6</button>
+            <button onclick="press('*')">*</button>
+
+            <button onclick="press('1')">1</button>
+            <button onclick="press('2')">2</button>
+            <button onclick="press('3')">3</button>
+            <button onclick="press('-')">-</button>
+
+            <button onclick="press('0')">0</button>
+            <button onclick="press('.')">.</button>
+            <button onclick="calculate()">=</button>
+            <button onclick="press('+')">+</button>
+
+            <button class="clear" onclick="clearDisplay()">C</button>
+        </div>
+
+        <button class="close-btn" onclick="closeCalc()">Close</button>
+    </div>
+  </div>
+
+  <div id="footerWrap"></div>
+
+  <script>
+    // connect UI
+    function updatePreview(){
+      const n=document.getElementById('name').value || '—';
+      const d=document.getElementById('date').value || '—';
+      const s=document.getElementById('stock').value || '0';
+      document.getElementById('preview').innerHTML =
+        `<div class="pname">${n}</div><div>Expiry: ${d}</div><div>Stock: ${s}</div>`;
+    }
+    document.getElementById('name').addEventListener('input', updatePreview);
+    document.getElementById('date').addEventListener('input', updatePreview);
+    document.getElementById('stock').addEventListener('input', updatePreview);
+
+    document.getElementById('addBtn').addEventListener('click', ()=>{
+      const name=document.getElementById('name').value;
+      const date=document.getElementById('date').value;
+      const stock=document.getElementById('stock').value;
+      const note=document.getElementById('note').value;
+      addItemSmart(name,date,Number(stock),note);
+      updatePreview();
+    });
+
+    // stock calculator
+    document.getElementById('c-go').addEventListener('click', ()=>{
+      const a=Number(document.getElementById('c-a').value||0);
+      const b=Number(document.getElementById('c-b').value||0);
+      const op=document.getElementById('c-op').value;
+      let res='—';
+      if(op==='add') res=a+b;
+      if(op==='sub') res=a-b;
+      if(op==='mul') res=a*b;
+      if(op==='div') res=b===0?'∞':(a/b);
+      document.getElementById('c-res').innerText = 'Result: '+res;
+      if(confirm('Copy result to Stock field?')) {
+        if(!isNaN(Number(res))) document.getElementById('stock').value = Number(res);
+        updatePreview();
+      }
+    });
+
+    // popup calculator
+    const calcBtn = document.getElementById("calcBtn");
+    const popup = document.getElementById("calculatorPopup");
+
+    calcBtn.onclick = () => popup.style.display = "block";
+    function closeCalc() { popup.style.display = "none"; }
+    function press(val){ document.getElementById("display").value += val; }
+    function clearDisplay(){ document.getElementById("display").value = ""; }
+    function calculate(){
+      let exp = document.getElementById("display").value;
+      try { document.getElementById("display").value = eval(exp); }
+      catch(e){ document.getElementById("display").value = "Error"; }
+    }
+
+    // small top-live-search
+    function doLiveTopSearch(e){
+      const q=e.target.value;
+      const res=searchItems(q).slice(0,6);
+      if(res.length===1 && q.trim().toLowerCase()===res[0].name.toLowerCase()){
+        const it=res[0];
+        if(confirm(`Item found: ${it.name}\nExpiry: ${formatDate(it.date)}\nStock: ${it.stock}\nOpen view page?`)){
+          location.href='view-items.html';
+        }
+      }
+    }
+
+    document.getElementById('footerWrap').innerHTML = footerHTML();
+  </script>
+</body>
+</html>

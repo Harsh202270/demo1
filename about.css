@@ -1,0 +1,9 @@
+/* about.css */
+*{box-sizing:border-box}
+body{margin:0;font-family:Poppins, sans-serif;background:linear-gradient(135deg,#1f4037,#99f2c8);color:#111;min-height:100vh}
+.topbar{display:flex;align-items:center;gap:12px;padding:14px 20px;background:rgba(255,255,255,0.04)}
+.main{padding:22px}
+.card{max-width:900px;margin:auto;padding:18px;border-radius:12px;background:rgba(255,255,255,0.9)}
+.card ul{margin-left:18px}
+footer.site-footer{margin-top:30px;padding:12px;background:rgba(0,0,0,0.06);border-radius:12px;display:flex;justify-content:space-between}
+

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Delete Item - Smart Grocery</title>
+  <link rel="stylesheet" href="delete-item.css">
+  <script src="app.js"></script>
+</head>
+<body onload="renderList()">
+  <header class="topbar"><div class="logo">🗑️ Delete Item</div><nav><a href="index.html">Home</a><a href="view-items.html">View</a></nav></header>
+  <main class="main">
+    <div class="list" id="list"></div>
+  </main>
+  <div id="footerWrap"></div>
+  <script>
+    function renderList(){
+      const wrap=document.getElementById('list');
+      wrap.innerHTML='';
+      loadItems().forEach(it=>{
+        wrap.innerHTML += `<div class="row">
+          <div>${it.name} • ${formatDate(it.date)} • ${it.stock}</div>
+          <div><button onclick="if(confirm('Delete ${it.name}?')){ deleteItemById('${it.id}'); renderList(); }">Delete</button></div>
+        </div>`;
+      });
+    }
+    document.getElementById('footerWrap').innerHTML = footerHTML();
+  </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Search - Smart Grocery</title>
+  <link rel="stylesheet" href="search.css">
+  <script src="app.js"></script>
+</head>
+<body onload="renderSearch()">
+  <header class="topbar">
+    <div class="logo">🔎 Search</div>
+    <input id="q" class="search" placeholder="Type to search..." oninput="renderSearch()">
+    <nav><a href="index.html">Home</a><a href="add-item.html">Add</a></nav>
+  </header>
+
+  <main class="main">
+    <section class="results" id="results"></section>
+  </main>
+
+  <div id="footerWrap"></div>
+
+  <script>
+    function renderSearch(){
+      const q = document.getElementById('q').value;
+      const items = searchItems(q);
+      const grouped = groupByName(items);
+      const container = document.getElementById('results');
+      container.innerHTML = '';
+      if(Object.keys(grouped).length===0) { container.innerHTML = '<div class="empty">No results</div>'; return; }
+      for(const key in grouped){
+        const arr = grouped[key];
+        const sample = arr[0];
+        container.innerHTML += `
+          <article class="group">
+            <div class="ghead">
+              <div class="gname">${sample.name} <span class="count">(${arr.length})</span></div>
+              <div class="gaction"><button onclick='openGroup("${sample.name.replace(/"/g,"\\\"")}")'>Open</button></div>
+            </div>
+            <div class="glist">
+              ${arr.map(it=>`<div class="gitem ${statusColor(it)}" onclick='showShort("${it.id}")'>
+                Exp: ${formatDate(it.date)} • Stock: ${it.stock}
+              </div>`).join('')}
+            </div>
+          </article>
+        `;
+      }
+    }
+
+    function openGroup(name){
+      // open modal listing all same-name items
+      const items = loadItems().filter(i=>i.name.toLowerCase()===name.toLowerCase());
+      let html = `<h3>${name} — ${items.length} record(s)</h3>`;
+      items.forEach(it=>{
+        html += `<div style="margin-bottom:10px;padding:10px;border-radius:8px;background:#f4f4f4;">
+          <b>Expiry:</b> ${formatDate(it.date)} <b>Stock:</b> ${it.stock} <br><small>Note: ${it.note||'—'}</small>
+          <div style="margin-top:8px">
+            <button onclick="promptSell('${it.name}')">Sell 1</button>
+            <button onclick="promptUpdate('${it.id}')">Update</button>
+            <button onclick="if(confirm('Delete this?')){ deleteItemById('${it.id}'); renderSearch(); }">Delete</button>
+          </div>
+        </div>`;
+      });
+      const modal = document.createElement('div');
+      modal.className='overlay';
+      modal.innerHTML = `<div class="overlay-inner">${html}<div style="text-align:right"><button onclick="document.body.removeChild(this.parentElement.parentElement)">Close</button></div></div>`;
+      document.body.appendChild(modal);
+    }
+
+    function showShort(id){
+      const it = getItemById(id);
+      alert(`${it.name}\nExpiry: ${formatDate(it.date)}\nStock: ${it.stock}\nNote: ${it.note||'—'}`);
+    }
+
+    function promptSell(name){
+      if(confirm('Sell 1 unit of '+name+'?')) { sellItemByName(name); renderSearch(); }
+    }
+
+    // helper update prompt reused
+    function promptUpdate(id){
+      const newDate = prompt('New expiry date (YYYY-MM-DD):');
+      const newStock = prompt('New stock (number):');
+      updateItemById(id, newDate || undefined, Number(newStock), undefined);
+      renderSearch();
+    }
+
+    document.getElementById('footerWrap').innerHTML = footerHTML();
+  </script>
+</body>
+</html>

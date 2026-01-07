@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>About - Smart Grocery</title>
+  <link rel="stylesheet" href="about.css">
+  <script src="app.js"></script>
+</head>
+<body>
+  <header class="topbar"><div class="logo">ℹ️ About</div><nav><a href="index.html">Home</a><a href="add-item.html">Add</a></nav></header>
+  <main class="main">
+    <div class="card">
+      <h2>Smart Grocery Expiry Reminder</h2>
+      <p><b>Features:</b></p>
+      <ul>
+        <li>Add items with expiry & stock</li>
+        <li>Duplicate-check + merge stock or add separate</li>
+        <li>Sell items and auto-deduct stock</li>
+        <li>Color coded status and alerts</li>
+        <li>Live search & grouped results</li>
+      </ul>
+      <p><b>Tech:</b> HTML, CSS (per-page), JavaScript, localStorage</p>
+      <p><b>How to demo:</b> Open add-item, add few items, go to View to inspect, use Sell to deduct stock.</p>
+    </div>
+  </main>
+  <div id="footerWrap"></div>
+  <script>document.getElementById('footerWrap').innerHTML = footerHTML();</script>
+</body>
+</html>

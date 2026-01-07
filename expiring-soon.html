@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Expiring Soon - Smart Grocery</title>
+  <link rel="stylesheet" href="expiring-soon.css">
+  <script src="app.js"></script>
+</head>
+<body onload="renderSoon()">
+  <header class="topbar"><div class="logo">⏳ Expiring Soon</div><nav><a href="index.html">Home</a><a href="view-items.html">View</a></nav></header>
+  <main class="main">
+    <div id="wrap"></div>
+  </main>
+  <div id="footerWrap"></div>
+  <script>
+    function renderSoon(){
+      const items = loadItems().filter(i => {
+        const cls = statusColor(i);
+        return cls === 'yellow';
+      });
+      const wrap = document.getElementById('wrap');
+      if(items.length===0) wrap.innerHTML='<div class="empty">Nothing expiring soon 🎉</div>';
+      else wrap.innerHTML = items.map(it=>`<div class="row"><b>${it.name}</b> • Exp: ${formatDate(it.date)} • Stock: ${it.stock}</div>`).join('');
+    }
+    document.getElementById('footerWrap').innerHTML = footerHTML();
+  </script>
+</body>
+</html>

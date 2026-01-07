@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard - Smart Grocery</title>
+  <link rel="stylesheet" href="index.css">
+  <script src="app.js"></script>
+</head>
+<body onload="ensureDemoData()">
+  <header class="topbar">
+    <div class="logo">🍎 Smart Grocery</div>
+    <input id="globalSearch" class="search" placeholder="Search items..." oninput="liveSearch(event)">
+    <nav>
+      <a href="add-item.html">Add Item</a>
+      <a href="view-items.html">View Items</a>
+      <a href="search.html">Search</a>
+      <a href="sell-item.html">Sell</a>
+      <a href="expiring-soon.html">Expiring Soon</a>
+      <a href="expired.html">Expired</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <section class="cards" id="dashCards">
+      <!-- dynamic -->
+    </section>
+  </main>
+
+  <div id="footerWrap"></div>
+
+  <script>
+    function liveSearch(e){
+      const q = e.target.value;
+      const res = searchItems(q);
+      // show top 4 matches as cards
+      const cards = document.getElementById('dashCards');
+      cards.innerHTML = '';
+      res.slice(0,6).forEach(it => {
+        const cls = statusColor(it);
+        cards.innerHTML += `
+          <article class="card ${cls}" onclick="location.href='view-items.html'">
+            <div class="card-title">${it.name}</div>
+            <div class="card-sub">Exp: ${formatDate(it.date)}</div>
+            <div class="card-sub">Stock: ${it.stock}</div>
+          </article>
+        `;
+      });
+      if (q.trim() === '') {
+        // show summary stats
+        const all = loadItems();
+        const total = all.length;
+        const totalStock = all.reduce((s,i)=>s+i.stock,0);
+        cards.innerHTML = `
+          <article class="stat">
+            <h3>Total Items</h3><p>${total}</p>
+          </article>
+          <article class="stat">
+            <h3>Total Stock</h3><p>${totalStock}</p>
+          </article>
+        `;
+      }
+    }
+
+    // initial render
+    document.addEventListener('DOMContentLoaded', ()=> liveSearch({target:{value:''}}));
+    // footer
+    document.getElementById('footerWrap').innerHTML = footerHTML();
+  </script>
+</body>
+</html>

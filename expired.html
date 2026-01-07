@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Expired / Out of Stock - Smart Grocery</title>
+  <link rel="stylesheet" href="expired.css">
+  <script src="app.js"></script>
+</head>
+<body onload="renderExpired()">
+  <header class="topbar"><div class="logo">⚠️ Expired / Out</div><nav><a href="index.html">Home</a><a href="view-items.html">View</a></nav></header>
+  <main class="main">
+    <div id="wrap"></div>
+  </main>
+  <div id="footerWrap"></div>
+  <script>
+    function renderExpired(){
+      const items = loadItems().filter(i => statusColor(i) === 'red');
+      const wrap = document.getElementById('wrap');
+      if(items.length===0) wrap.innerHTML='<div class="empty">No expired or out-of-stock items</div>';
+      else wrap.innerHTML = items.map(it=>`<div class="row red">${it.name} • Exp: ${formatDate(it.date)} • Stock: ${it.stock}</div>`).join('');
+    }
+    document.getElementById('footerWrap').innerHTML = footerHTML();
+  </script>
+</body>
+</html>

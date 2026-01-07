@@ -1,0 +1,9 @@
+/* update-item.css */
+*{box-sizing:border-box}
+body{margin:0;font-family:Poppins, sans-serif;background:linear-gradient(135deg,#0f2027,#203a43);color:#fff;min-height:100vh}
+.topbar{display:flex;align-items:center;gap:12px;padding:14px 20px;background:rgba(255,255,255,0.03)}
+.main{padding:28px}
+.card{padding:18px;border-radius:12px;background:rgba(255,255,255,0.04);max-width:600px;margin:auto}
+input,select{width:100%;padding:10px;border-radius:8px;border:none;background:rgba(255,255,255,0.03);color:#fff;margin-top:10px}
+button{margin-top:12px;padding:10px;border-radius:8px;border:none;background:#7bd389;color:#000;font-weight:700;cursor:pointer}
+footer.site-footer{margin-top:30px;padding:12px;background:rgba(0,0,0,0.12);border-radius:12px;display:flex;justify-content:space-between}

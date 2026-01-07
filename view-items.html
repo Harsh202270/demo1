@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>View Items - Smart Grocery</title>
+  <link rel="stylesheet" href="view-items.css">
+  <script src="app.js"></script>
+</head>
+<body onload="renderItems()">
+  <header class="topbar">
+    <div class="logo">🧾 Inventory</div>
+    <input class="search" placeholder="Live search..." oninput="renderItems(this.value)">
+    <nav><a href="index.html">Dashboard</a><a href="add-item.html">Add</a><a href="search.html">Search</a></nav>
+  </header>
+
+  <main class="main">
+    <section id="listWrap" class="listWrap"></section>
+  </main>
+
+  <div id="footerWrap"></div>
+
+  <!-- simple modal -->
+  <div id="modal" class="modal" style="display:none;">
+    <div class="modal-inner">
+      <div id="modalContent"></div>
+      <div class="modal-actions">
+        <button onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function renderItems(query=''){
+      const items = searchItems(query);
+      const container = document.getElementById('listWrap');
+      container.innerHTML = '';
+      if(items.length===0) container.innerHTML = '<div class="empty">No items found</div>';
+      items.forEach(it=>{
+        const cls = statusColor(it);
+        container.innerHTML += `
+          <article class="item ${cls}">
+            <div class="left">
+              <div class="title">${it.name}</div>
+              <div class="meta">Expiry: ${formatDate(it.date)} • Stock: ${it.stock}</div>
+            </div>
+            <div class="right">
+              <button onclick="openDetails('${it.id}')">Details</button>
+              <button onclick="sellQuick('${it.name}')">Sell</button>
+            </div>
+          </article>
+        `;
+      });
+    }
+
+    function sellQuick(name){
+      if(confirm('Sell 1 unit of '+name+'?')) {
+        sellItemByName(name);
+        renderItems();
+      }
+    }
+
+    function openDetails(id){
+      const it = getItemById(id);
+      const html = `
+        <h3>${it.name}</h3>
+        <p><b>Expiry:</b> ${formatDate(it.date)}</p>
+        <p><b>Stock:</b> ${it.stock}</p>
+        <p><b>Note:</b> ${it.note||'—'}</p>
+        <div class="detail-actions">
+          <button onclick="promptUpdate('${it.id}')">Update</button>
+          <button onclick="if(confirm('Delete this item?')){ deleteItemById('${it.id}'); closeModal(); renderItems(); }">Delete</button>
+        </div>
+      `;
+      document.getElementById('modalContent').innerHTML = html;
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    function closeModal(){ document.getElementById('modal').style.display='none'; }
+    function promptUpdate(id){
+      const newDate = prompt('New expiry date (YYYY-MM-DD):');
+      const newStock = prompt('New stock (number):');
+      updateItemById(id, newDate || undefined, Number(newStock), undefined);
+      alert('Updated.');
+      closeModal(); renderItems();
+    }
+
+    document.getElementById('footerWrap').innerHTML = footerHTML();
+  </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sell Item - Smart Grocery</title>
+  <link rel="stylesheet" href="sell-item.css">
+  <script src="app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">🛒 Sell Item</div>
+    <input class="search" placeholder="Search to sell..." oninput="suggest(event)">
+    <nav><a href="index.html">Home</a><a href="view-items.html">View</a></nav>
+  </header>
+
+  <main class="main">
+    <div class="card">
+      <h2>Sell Item</h2>
+      <input id="sellName" placeholder="Type item name or choose suggestion">
+      <div class="row">
+        <button onclick="doSell()">Sell 1</button>
+        <button onclick="sellBulk()">Sell Bulk</button>
+      </div>
+    </div>
+
+    <aside class="card hint" id="suggestions"></aside>
+  </main>
+
+  <div id="footerWrap"></div>
+
+  <script>
+    function suggest(e){
+      const q = e.target.value || '';
+      const arr = searchItems(q).slice(0,6);
+      const wrap = document.getElementById('suggestions');
+      wrap.innerHTML = '<h4>Suggestions</h4>';
+      if(arr.length===0) { wrap.innerHTML += '<div>No matches</div>'; return; }
+      arr.forEach(it=>{
+        wrap.innerHTML += `<div class="s" onclick="document.getElementById('sellName').value='${it.name}';">${it.name} • ${it.stock}</div>`;
+      });
+    }
+
+    function doSell(){
+      const name = document.getElementById('sellName').value;
+      if(!name) { alert('Enter name'); return; }
+      if(confirm('Sell 1 unit of '+name+'?')) {
+        sellItemByName(name);
+        suggest({target:{value:name}});
+      }
+    }
+
+    function sellBulk(){
+      const name = document.getElementById('sellName').value;
+      const qty = Number(prompt('Enter quantity to sell:','1'));
+      if(!name || isNaN(qty) || qty<=0) return alert('Invalid');
+      const items = loadItems();
+      const idx = items.findIndex(i=>i.name.toLowerCase()===name.toLowerCase());
+      if(idx===-1) return alert('Not found');
+      if(items[idx].stock < qty) return alert('Insufficient stock');
+      items[idx].stock -= qty;
+      saveItems(items);
+      alert(`${qty} sold. Remaining ${items[idx].stock}`);
+    }
+
+    document.getElementById('footerWrap').innerHTML = footerHTML();
+  </script>
+</body>
+</html>
